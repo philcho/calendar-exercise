@@ -1,11 +1,11 @@
 /*
- * TODO: Time slot events should have rounded corners
  * TODO: Past events should display faded-out
  */
 .time-slot-event {
     display: block;
     cursor: pointer;
     border: 1px solid transparent;
+    border-radius: 0.25rem;
     padding: 0.5rem;
     font-size: 1rem;
     overflow: hidden;
