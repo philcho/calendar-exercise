@@ -1,6 +1,3 @@
-/*
- * TODO: Past events should display faded-out
- */
 .time-slot-event {
     display: block;
     cursor: pointer;
@@ -38,4 +35,7 @@
 .time-slot-event--shamrock {
     background-color: #009e60;
     border-color: #003800;
+}
+.time-slot-event--past {
+    opacity: 0.5;
 }
