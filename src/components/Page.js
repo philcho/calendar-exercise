@@ -3,6 +3,7 @@ import Calendar from './Calendar';
 import EventDetailOverlay from './EventDetailOverlay';
 import {filterEventsByDay, getEventFromEvents, getDisplayDate} from '../utils';
 import DATA_SET from '../utils/data';
+import {MILLISECONDS_DAY} from '../utils/constants';
 
 import './Page.css';
 
@@ -39,18 +40,44 @@ export default class Page extends PureComponent {
 
     _handleSelectEvent(selectedEventId) {
         this.setState({selectedEventId});
+
+        // Prevent scrolling in the background when event detail shows
+        document.body.style.overflow = 'hidden';
+
+        document.addEventListener('keyup', this._handleKeyUp);
+        document.addEventListener('click', this._handleClick);
     }
 
     _handleEventDetailOverlayClose() {
         this.setState({selectedEventId: undefined});
+
+        // Restore scrolling in the background
+        document.body.style.overflow = 'visible';
+
+        document.removeEventListener('keyup', this._handleKeyUp);
+        document.removeEventListener('click', this._handleClick);
+    }
+
+    _handleKeyUp = (e) => {
+        if (e.keyCode === 27) {
+            this._handleEventDetailOverlayClose();
+        }
+    }
+
+    _handleClick = (e) => {
+        let eventDetailEl = document.querySelector('.event-detail-overlay__container');
+
+        if (!eventDetailEl.contains(e.target)) {
+            this._handleEventDetailOverlayClose();
+        }
     }
 
     _handlePrev() {
-        // TODO: Update this.state.day to go back 1 day so previous button works
+        this.setState({day: this.state.day - MILLISECONDS_DAY});
     }
 
     _handleNext() {
-        // TODO: Update this.state.day to go forward 1 day so next button works
+        this.setState({day: this.state.day + MILLISECONDS_DAY});
     }
 
     render() {
@@ -78,7 +105,7 @@ export default class Page extends PureComponent {
                     onPrev={this._handlePrev.bind(this)}
                     onNext={this._handleNext.bind(this)}
                 />
-                <Calendar events={filteredEvents} onSelectEvent={this._handleSelectEvent.bind(this)} />
+                <Calendar events={filteredEvents} onSelectEvent={this._handleSelectEvent.bind(this)} day={day} />
                 {eventDetailOverlay}
             </div>
         );
