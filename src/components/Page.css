@@ -1,10 +1,10 @@
 /*
- * TODO: page needs a gradient from white (top) to light gray (bottom)
  * TODO: On narrow screens the background shouldn't scroll when detail overlay is shown
  */
 
 .page {
     margin: 1rem;
+    background: linear-gradient(#fff, #eee);
 }
 .page__header {
     margin-bottom: 1rem;
