@@ -33,14 +33,19 @@ export const filterEventsByHour = (events, hour) => (
 /**
  * Given a numerical timestamp, returns the formatted date string w/o time component
  * @param {number} timestamp - The date to format
- * @returns {string} The formatted date
+ * @returns {string} The formatted date (ex: "Tuesday, April 11, 2017")
  */
 export const getDisplayDate = (timestamp) => {
     let date = new Date(timestamp);
 
-    // TODO: Format the date like: "Tuesday, April 11, 2017"
+    let options = {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    };
 
-    return date.toString();
+    return date.toLocaleString('en-US', options);
 };
 
 /**
