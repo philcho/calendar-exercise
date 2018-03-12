@@ -39,10 +39,16 @@ export default class Page extends PureComponent {
 
     _handleSelectEvent(selectedEventId) {
         this.setState({selectedEventId});
+
+        // Prevent scrolling in the background when event detail shows
+        document.body.style.overflow = 'hidden';
     }
 
     _handleEventDetailOverlayClose() {
         this.setState({selectedEventId: undefined});
+
+        // Restore scrolling in the background
+        document.body.style.overflow = 'visible';
     }
 
     _handlePrev() {
