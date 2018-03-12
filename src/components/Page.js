@@ -43,6 +43,8 @@ export default class Page extends PureComponent {
 
         // Prevent scrolling in the background when event detail shows
         document.body.style.overflow = 'hidden';
+
+        document.addEventListener('keyup', this._handleKeyUp.bind(this));
     }
 
     _handleEventDetailOverlayClose() {
@@ -50,6 +52,14 @@ export default class Page extends PureComponent {
 
         // Restore scrolling in the background
         document.body.style.overflow = 'visible';
+
+        document.removeEventListener('keyup', this._handleKeyUp.bind(this));
+    }
+
+    _handleKeyUp(e) {
+        if (e.keyCode === 27) {
+            this._handleEventDetailOverlayClose();
+        }
     }
 
     _handlePrev() {
