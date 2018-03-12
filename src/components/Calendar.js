@@ -10,10 +10,11 @@ export default class Calendar extends PureComponent {
     static propTypes = {
         events: EVENTS_PROP_TYPE.isRequired,
         onSelectEvent: PropTypes.func.isRequired,
+        day: PropTypes.number.isRequired,
     }
 
     _renderTimeSlots() {
-        let {events, onSelectEvent} = this.props;
+        let {events, onSelectEvent, day} = this.props;
 
         return new Array(HOURS_DAY)
             .fill(0)
@@ -25,6 +26,7 @@ export default class Calendar extends PureComponent {
                     <TimeSlot
                         key={hour}
                         hour={hour}
+                        day={day}
                         events={filteredEvents}
                         onSelectEvent={onSelectEvent}
                     />
